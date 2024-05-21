@@ -1,5 +1,6 @@
 package com.conversesphere.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +16,8 @@ import lombok.Data;
 
 @Entity
 @Data
-public class Tweet {
+public class Tweet{
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
@@ -30,7 +32,7 @@ public class Tweet {
 	@OneToMany(mappedBy = "tweet", cascade = CascadeType.ALL)
 	private List<Likes> likes = new ArrayList<>();
 
-	@OneToMany(mappedBy = "tweet", cascade = CascadeType.ALL)
+	@OneToMany
 	private List<Tweet> replyTweets = new ArrayList<>();
 
 	@ManyToMany

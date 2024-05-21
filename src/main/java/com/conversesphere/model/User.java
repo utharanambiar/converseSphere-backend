@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
@@ -33,7 +32,7 @@ public class User {
 	private String bannerImage;
 	private String bio;
 	private Boolean isReqUser;
-	private Boolean isLoggedInWith3P;
+	private Boolean isLoggedInWith3P = false;
 	
 	@JsonIgnore
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
@@ -52,4 +51,5 @@ public class User {
 	@JsonIgnore
 	@ManyToMany
 	private List<User> following = new ArrayList<>();
+
 }
