@@ -28,12 +28,12 @@ public class AppConfig {
 			sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 			sessionManagement.invalidSessionUrl("/login");
 		});
-		http.csrf(AbstractHttpConfigurer::disable);
+		http.csrf((csrf) -> csrf.disable());
 		http.authorizeHttpRequests(
 				Authorize -> Authorize.requestMatchers("/api/**").authenticated().anyRequest().permitAll())
 				.httpBasic(Customizer.withDefaults());
 		http.addFilterBefore(new JwtTokenValidator(), BasicAuthenticationFilter.class);
-		http.cors(cors -> cors.configurationSource(CorsConfigurationSource()));
+		http.cors((cors) -> cors.configurationSource(CorsConfigurationSource()));
 		http.formLogin(form -> form.loginPage("/login").permitAll());
 
 		return http.build();
