@@ -27,7 +27,7 @@ public class UserDTOMapper {
 		return userDTO;
 	}
 
-	private static List<UserDTO> toUserDTOs(List<User> followers) {
+	public static List<UserDTO> toUserDTOs(List<User> followers) {
 		// TODO Auto-generated method stub
 		List<UserDTO> userDTOs = new ArrayList<>();
 		for (User user : followers) {
