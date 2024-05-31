@@ -3,6 +3,8 @@ package com.conversesphere.config;
 import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.crypto.SecretKey;
 
@@ -30,7 +32,7 @@ public class JwtProvider {
 	
 	public String getEmailFromToken(String jwt) {
 		jwt = jwt.substring(7);
-		Claims claims = Jwts.parser().verifyWith(key).build().parseUnsecuredClaims(jwt).getPayload();
+		Claims claims = Jwts.parser().verifyWith(key).build().parseClaimsJws(jwt).getBody();
 		
 		String email = String.valueOf(claims.get("email"));
 		return email;

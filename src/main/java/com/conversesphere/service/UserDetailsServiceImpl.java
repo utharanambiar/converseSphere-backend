@@ -18,16 +18,16 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	@Autowired
 	private UserRepository userRepo;
 	
-	private List<GrantedAuthority> authorities = new ArrayList<>();
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		// TODO Auto-generated method stub
 		User user = userRepo.findByEmail(username);
 
-		if (user == null) {
+		if (user == null || user.getIsLoggedInWith3P()) {
 			throw new UsernameNotFoundException("User not found:" + username);
 		}
+		List<GrantedAuthority> authorities = new ArrayList<>();
 		return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), authorities);
 	}
 

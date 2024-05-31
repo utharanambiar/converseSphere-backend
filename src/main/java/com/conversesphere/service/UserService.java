@@ -17,4 +17,6 @@ public interface UserService {
 	
 	public List<User> searchUser(String query);
 
+	User updateUserOtp(Long userId, User user) throws UserException;
+
 }

@@ -33,6 +33,8 @@ public class User {
 	private String bio;
 	private Boolean isReqUser;
 	private Boolean isLoggedInWith3P = false;
+	private String otp;
+	private Boolean isVerified = false;
 	
 	@JsonIgnore
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)

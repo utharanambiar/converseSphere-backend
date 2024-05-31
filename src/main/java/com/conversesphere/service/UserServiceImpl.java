@@ -1,6 +1,7 @@
 package com.conversesphere.service;
 
 import java.util.List;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -87,6 +88,17 @@ public class UserServiceImpl implements UserService {
 	public List<User> searchUser(String query) {
 		// TODO Auto-generated method stub
 		return userRepo.searchUser(query);
+	}
+	
+	@Override
+	public User updateUserOtp(Long userId, User user) throws UserException {
+		// TODO Auto-generated method stub
+		User userFound = findUserById(userId);
+
+		if (user.getOtp() != null) {
+			userFound.setOtp(user.getOtp());
+		}
+		return userRepo.save(userFound);
 	}
 
 }
