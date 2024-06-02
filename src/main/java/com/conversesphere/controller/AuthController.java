@@ -88,13 +88,16 @@ public class AuthController {
 	ResponseEntity<AuthResponse> signInUser(@RequestBody User user) throws UserException {
 		String email = user.getEmail();
 		String password = user.getPassword();
-		
+
 		Authentication authentication = authenticate(email, password);
 		String token = jwtprovider.generateToken(authentication);
 		AuthResponse res = new AuthResponse(token, true);
 		String otp = generateOTP();
-		user.setOtp(otp);
-		//sendVerificationEmail(user.getEmail(), otp);
+		User user1 = userRepo.findByEmail(email);
+		if (!otp.equals(user1.getOtp())) {
+			updateOTP(user1.getId(), user1.getOtp(), otp);
+		} 
+		sendVerificationEmail(user1.getEmail(), otp);
 
 		return new ResponseEntity<AuthResponse>(res, HttpStatus.ACCEPTED);
 	}
@@ -145,13 +148,28 @@ public class AuthController {
 			user.setIsVerified(false);
 			userRepo.save(user);
 			throw new RuntimeException("Invalid OTP");
-		} else if (user.getIsVerified()) {
-			throw new RuntimeException("User already verified");
 		} else if (otp.equals(user.getOtp())) {
 			user.setIsVerified(true);
 			userRepo.save(user);
 		} else {
 			throw new RuntimeException("Server error");
+		}
+	}
+
+	public void updateOTP(Long userId, String oldOTP, String newOtp) {
+		// User user = userRepo.findByEmail(email);
+		System.out.println("inside 2");
+		try {
+			User userFound = userService.findUserById(userId);
+			if (!oldOTP.equals(newOtp)) {
+				userFound.setOtp(newOtp);
+				userRepo.save(userFound);
+			} else {
+				throw new RuntimeException("Server error 2");
+			}
+		} catch (UserException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 

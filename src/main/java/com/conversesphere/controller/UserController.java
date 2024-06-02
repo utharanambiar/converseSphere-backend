@@ -58,7 +58,7 @@ public class UserController {
 	}
 
 	@PutMapping("/update")
-	public ResponseEntity<UserDTO> searchUser(@RequestBody User req, @RequestHeader("Authorization") String jwt)
+	public ResponseEntity<UserDTO> updateUser(@RequestBody User req, @RequestHeader("Authorization") String jwt)
 			throws UserException {
 		User reqUser = userService.findUserProfileByJwt(jwt);
 		User user = userService.updateUser(reqUser.getId(), req);
@@ -68,7 +68,7 @@ public class UserController {
 	}
 
 	@PutMapping("/{userId}/follow")
-	public ResponseEntity<UserDTO> searchUser(@PathVariable Long userId, @RequestHeader("Authorization") String jwt)
+	public ResponseEntity<UserDTO> followUser(@PathVariable Long userId, @RequestHeader("Authorization") String jwt)
 			throws UserException {
 		User reqUser = userService.findUserProfileByJwt(jwt);
 		User user = userService.followUser(userId, reqUser);
