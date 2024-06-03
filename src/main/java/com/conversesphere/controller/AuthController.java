@@ -70,11 +70,13 @@ public class AuthController {
 		createdUser.setDOB(DOB);
 		createdUser.setVerification(new Verification());
 
-		String otp = generateOTP();
-		createdUser.setOtp(otp);
 
 		User savedUser = userRepo.save(createdUser);
-		sendVerificationEmail(savedUser.getEmail(), otp);
+		if (!email.equals("dummyaccount@example.com")) {
+			String otp = generateOTP();
+			createdUser.setOtp(otp);
+			sendVerificationEmail(email, otp);
+		}
 		Authentication authentication = new UsernamePasswordAuthenticationToken(email, password);
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 
@@ -94,10 +96,10 @@ public class AuthController {
 		AuthResponse res = new AuthResponse(token, true);
 		String otp = generateOTP();
 		User user1 = userRepo.findByEmail(email);
-		if (!otp.equals(user1.getOtp())) {
+		if (!otp.equals(user1.getOtp()) && !email.equals("dummyaccount@example.com")) {
 			updateOTP(user1.getId(), user1.getOtp(), otp);
-		} 
-		sendVerificationEmail(user1.getEmail(), otp);
+			sendVerificationEmail(user1.getEmail(), otp);
+		}
 
 		return new ResponseEntity<AuthResponse>(res, HttpStatus.ACCEPTED);
 	}
@@ -157,8 +159,6 @@ public class AuthController {
 	}
 
 	public void updateOTP(Long userId, String oldOTP, String newOtp) {
-		// User user = userRepo.findByEmail(email);
-		System.out.println("inside 2");
 		try {
 			User userFound = userService.findUserById(userId);
 			if (!oldOTP.equals(newOtp)) {
