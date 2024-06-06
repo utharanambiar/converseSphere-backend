@@ -32,7 +32,6 @@ public class UserServiceImpl implements UserService {
 		// TODO Auto-generated method stub
 		String email = jwtProvider.getEmailFromToken(jwt);
 		User user = userRepo.findByEmail(email);
-
 		if (user == null)
 			throw new UserException("User not found with email" + email);
 		return user;
