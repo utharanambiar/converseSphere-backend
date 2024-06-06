@@ -98,6 +98,15 @@ public class TweetController {
 		List<TweetDTO> tweetDTOs = TweetDTOMapper.toTweetDTOs(tweets, user);
 		return new ResponseEntity<>(tweetDTOs, HttpStatus.OK);
 	}
+	
+	@GetMapping("/replies/user/{userId}")
+	public ResponseEntity<List<TweetDTO>> getAllRepliesByUser(@PathVariable Long userId,
+			@RequestHeader("Authorization") String jwt) throws UserException, TweetException {
+		User user = userService.findUserProfileByJwt(jwt);
+		List<Tweet> tweets = tweetService.getRepliesByUser(userId);
+		List<TweetDTO> tweetDTOs = TweetDTOMapper.toTweetDTOs(tweets, user);
+		return new ResponseEntity<>(tweetDTOs, HttpStatus.OK);
+	}
 
 	@GetMapping("/user/{userId}/likes")
 	public ResponseEntity<List<TweetDTO>> findTweetsLikedByUser(@PathVariable Long userId,

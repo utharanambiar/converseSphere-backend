@@ -48,6 +48,7 @@ public class TweetDTOMapper {
 			TweetDTO tweetDTO = toReplyTweetDTO(tweet, reqUser);
 			tweetDTOs.add(tweetDTO);
 		}
+		System.out.println("tweetDTO 2" + tweetDTOs);
 		return tweetDTOs;
 	}
 
@@ -74,6 +75,7 @@ public class TweetDTOMapper {
 		tweetDTO.setTotalReplies(tweet.getReplyTweets().size());
 		tweetDTO.setTotalRetweets(tweet.getReTweet().size());
 		tweetDTO.setUser(user);
+		tweetDTO.setReplyTweets(toTweetDTOs(tweet.getReplyTweets(), reqUser));
 		tweetDTO.setLiked(isLiked);
 		tweetDTO.setRetweet(isRetweeted);
 		tweetDTO.setRetweetUserIds(retweetUserIds);

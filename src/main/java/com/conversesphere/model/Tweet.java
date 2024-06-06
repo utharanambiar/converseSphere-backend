@@ -16,6 +16,17 @@ import lombok.Data;
 
 @Entity
 public class Tweet{
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
+
+	@ManyToOne
+	private User user;
+
+	private String content;
+	private String img;
+	private String video;
+	
 	
 	public Long getId() {
 		return id;
@@ -89,16 +100,6 @@ public class Tweet{
 	public void setCreatedAt(LocalDateTime createdAt) {
 		this.createdAt = createdAt;
 	}
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
-
-	@ManyToOne
-	private User user;
-
-	private String content;
-	private String img;
-	private String video;
 
 	@OneToMany(mappedBy = "tweet", cascade = CascadeType.ALL)
 	private List<Likes> likes = new ArrayList<>();

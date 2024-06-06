@@ -20,11 +20,11 @@ public interface TweetService {
 	
 	public void deleteTweetById(Long tweetId, Long userId) throws TweetException, UserException;
 	
-	public Tweet removeFromRetweets(Long tweetId, User user) throws TweetException, UserException;
-	
 	public Tweet createReply(TweetReplyRequest req, User user) throws TweetException;
 	
 	public List<Tweet> getUserTweets(User user);
 	
 	public List<Tweet> getLikesByUser(User user);
+	
+	public List<Tweet> getRepliesByUser(Long userId) throws TweetException, UserException;
 }

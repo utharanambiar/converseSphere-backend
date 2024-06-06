@@ -38,7 +38,6 @@ public class TweetServiceImpl implements TweetService{
 		return tweetRepo.findAllByIsTweetTrueOrderByCreatedAtDesc();
 	}
 
-	//Retweet and remove retweet
 	@Override
 	public Tweet retweet(Long tweetId, User user) throws UserException, TweetException {
 		// TODO Auto-generated method stub
@@ -66,12 +65,6 @@ public class TweetServiceImpl implements TweetService{
 			throw new UserException("You cannot deleted other user's tweet");
 		}
 		tweetRepo.deleteById(tweetId);
-	}
-
-	@Override
-	public Tweet removeFromRetweets(Long tweetId, User user) throws TweetException, UserException {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override
@@ -105,6 +98,12 @@ public class TweetServiceImpl implements TweetService{
 	public List<Tweet> getLikesByUser(User user) {
 		
 		return tweetRepo.findByLikesUser_Id(user.getId());
+	}
+
+	@Override
+	public List<Tweet> getRepliesByUser(Long userId) throws TweetException, UserException {
+		// TODO Auto-generated method stub
+		return tweetRepo.findByUser_IdAndIsReplyTrueOrderByCreatedAtDesc(userId);
 	}
 
 }
