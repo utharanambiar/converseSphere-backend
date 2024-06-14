@@ -113,11 +113,22 @@ public class AuthController {
 			return new ResponseEntity<Object>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
 	}
+	
+	@PostMapping("/logout")
+	ResponseEntity<Object> logoutUser(@RequestBody User user) {
+		try {
+			User user1 = userRepo.findByEmail(user.getEmail());
+			user1.setIsVerified(false);
+			userRepo.save(user1);
+			return new ResponseEntity<Object>("User logged out", HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<Object>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+	}
 
 	private Authentication authenticate(String email, String password) {
 		// TODO Auto-generated method stub
 		UserDetails userDetails = customUserDetails.loadUserByUsername(email);
-		System.out.println("deets" + userDetails);
 		if (userDetails == null) {
 			throw new BadCredentialsException("Invalid username");
 		}

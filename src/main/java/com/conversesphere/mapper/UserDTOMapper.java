@@ -20,6 +20,7 @@ public class UserDTOMapper {
 		userDTO.setLocation(user.getLocation());
 		userDTO.setPhoneNumber(user.getPhoneNumber());
 		userDTO.setProfileImage(user.getProfileImage());
+		userDTO.setWebsite(user.getWebsite());
 		userDTO.setFollowers(toUserDTOs(user.getFollowers()));
 		userDTO.setFollowing(toUserDTOs(user.getFollowing()));
 		userDTO.setIsLoggedInWith3P(user.getIsLoggedInWith3P());

@@ -42,10 +42,10 @@ public class TweetServiceImpl implements TweetService{
 	public Tweet retweet(Long tweetId, User user) throws UserException, TweetException {
 		// TODO Auto-generated method stub
 		Tweet tweet = findById(tweetId);
-		if(tweet.getReTweet().contains(user)) {
-			tweet.getReTweet().remove(user);
+		if(tweet.getReTweetUser().contains(user)) {
+			tweet.getReTweetUser().remove(user);
 		} else {
-			tweet.getReTweet().add(user);
+			tweet.getReTweetUser().add(user);
 		}
 		return tweetRepo.save(tweet);
 	}
@@ -89,9 +89,9 @@ public class TweetServiceImpl implements TweetService{
 	}
 
 	@Override
-	public List<Tweet> getUserTweets(User user) {
+	public List<Tweet> getUserTweets(User user, Long userId) {
 		// TODO Auto-generated method stub
-		return tweetRepo.findByReTweetContainsOrUser_IdAndIsTweetTrueOrderByCreatedAtDesc(user, user.getId());
+		return tweetRepo.findByReTweetUserContainsOrUser_IdAndIsTweetTrueOrderByCreatedAtDesc(user,userId);
 	}
 
 	@Override

@@ -20,7 +20,7 @@ public class TweetDTOMapper {
 
 		List<Long> retweetUserIds = new ArrayList<>();
 
-		for (User userRetweet : tweet.getReTweet()) {
+		for (User userRetweet : tweet.getReTweetUser()) {
 			retweetUserIds.add(userRetweet.getId());
 		}
 
@@ -32,7 +32,7 @@ public class TweetDTOMapper {
 		tweetDTO.setCreatedAt(tweet.getCreatedAt());
 		tweetDTO.setTotalLikes(tweet.getLikes().size());
 		tweetDTO.setTotalReplies(tweet.getReplyTweets().size());
-		tweetDTO.setTotalRetweets(tweet.getReTweet().size());
+		tweetDTO.setTotalRetweets(tweet.getReTweetUser().size());
 		tweetDTO.setUser(user);
 		tweetDTO.setLiked(isLiked);
 		tweetDTO.setRetweet(isRetweeted);
@@ -48,7 +48,6 @@ public class TweetDTOMapper {
 			TweetDTO tweetDTO = toReplyTweetDTO(tweet, reqUser);
 			tweetDTOs.add(tweetDTO);
 		}
-		System.out.println("tweetDTO 2" + tweetDTOs);
 		return tweetDTOs;
 	}
 
@@ -61,7 +60,7 @@ public class TweetDTOMapper {
 
 		List<Long> retweetUserIds = new ArrayList<>();
 
-		for (User userRetweet : tweet.getReTweet()) {
+		for (User userRetweet : tweet.getReTweetUser()) {
 			retweetUserIds.add(userRetweet.getId());
 		}
 
@@ -73,9 +72,9 @@ public class TweetDTOMapper {
 		tweetDTO.setCreatedAt(tweet.getCreatedAt());
 		tweetDTO.setTotalLikes(tweet.getLikes().size());
 		tweetDTO.setTotalReplies(tweet.getReplyTweets().size());
-		tweetDTO.setTotalRetweets(tweet.getReTweet().size());
+		tweetDTO.setTotalRetweets(tweet.getReTweetUser().size());
 		tweetDTO.setUser(user);
-		tweetDTO.setReplyTweets(toTweetDTOs(tweet.getReplyTweets(), reqUser));
+		//tweetDTO.setReplyTweets(toTweetDTOs(tweet.getReplyTweets(), reqUser));
 		tweetDTO.setLiked(isLiked);
 		tweetDTO.setRetweet(isRetweeted);
 		tweetDTO.setRetweetUserIds(retweetUserIds);

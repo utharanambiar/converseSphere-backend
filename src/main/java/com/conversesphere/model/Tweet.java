@@ -70,12 +70,6 @@ public class Tweet{
 	public void setReplyTweets(List<Tweet> replyTweets) {
 		this.replyTweets = replyTweets;
 	}
-	public List<User> getReTweet() {
-		return reTweet;
-	}
-	public void setReTweet(List<User> reTweet) {
-		this.reTweet = reTweet;
-	}
 	public Tweet getReplyFor() {
 		return replyFor;
 	}
@@ -100,6 +94,12 @@ public class Tweet{
 	public void setCreatedAt(LocalDateTime createdAt) {
 		this.createdAt = createdAt;
 	}
+	public List<User> getReTweetUser() {
+		return reTweetUser;
+	}
+	public void setReTweetUser(List<User> reTweetUser) {
+		this.reTweetUser = reTweetUser;
+	}
 
 	@OneToMany(mappedBy = "tweet", cascade = CascadeType.ALL)
 	private List<Likes> likes = new ArrayList<>();
@@ -108,12 +108,12 @@ public class Tweet{
 	private List<Tweet> replyTweets = new ArrayList<>();
 
 	@ManyToMany
-	private List<User> reTweet = new ArrayList<>();
+	private List<User> reTweetUser = new ArrayList<>();
 	
 	//why not one to one?
 	@ManyToOne
 	private Tweet replyFor;
-	
+
 	private Boolean isReply;
 	private Boolean isTweet;
 	private LocalDateTime createdAt;

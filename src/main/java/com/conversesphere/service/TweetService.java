@@ -22,7 +22,7 @@ public interface TweetService {
 	
 	public Tweet createReply(TweetReplyRequest req, User user) throws TweetException;
 	
-	public List<Tweet> getUserTweets(User user);
+	public List<Tweet> getUserTweets(User user,Long userId);
 	
 	public List<Tweet> getLikesByUser(User user);
 	

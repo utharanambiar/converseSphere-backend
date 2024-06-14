@@ -17,7 +17,7 @@ public class TweetUtil {
 
 	public final static boolean isRetweetedByReqUser(User reqUser, Tweet tweet) {
 
-		for (User user : tweet.getReTweet()) {
+		for (User user : tweet.getReTweetUser()) {
 			if (user.getId() == reqUser.getId()) {
 				return true;
 			}
