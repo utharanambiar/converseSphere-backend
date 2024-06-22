@@ -3,6 +3,7 @@ package com.conversesphere.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Embedded;
@@ -203,10 +204,11 @@ public class User {
 	private String otp;
 	private Boolean isVerified = false;
 	
-	@JsonIgnore
+	@JsonBackReference
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 	private List<Tweet> tweet = new ArrayList<>();
 	
+	@JsonBackReference
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 	private List<Likes> likes = new ArrayList<>();
 	

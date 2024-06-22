@@ -13,12 +13,15 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.conversesphere.dto.TweetDTO;
+import com.conversesphere.dto.UserDTO;
 import com.conversesphere.exception.TweetException;
 import com.conversesphere.exception.UserException;
 import com.conversesphere.mapper.TweetDTOMapper;
+import com.conversesphere.mapper.UserDTOMapper;
 import com.conversesphere.model.Tweet;
 import com.conversesphere.model.User;
 import com.conversesphere.request.TweetReplyRequest;
